@@ -3,6 +3,7 @@ package com.example.thjen.demoproject;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -39,6 +40,11 @@ public class MainActivity extends AppCompatActivity {
         et_add = (EditText) findViewById(R.id.etAdd1);
 
         customExpandableListView = new CustomExpandableListView(this, listChild, listGroup);
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int width = metrics.widthPixels;
+        lv.setIndicatorBounds(width - dp2px(50), width - dp2px(10));
 
         bt_add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +86,13 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
+    }
+
+    public int dp2px(float dp) {
+        // Get the screen's density scale
+        final float density = getResources().getDisplayMetrics().density;
+        // Convert the dps to pixels, based on density scale
+        return (int) (dp * density + 0.5f);
     }
 
 }
